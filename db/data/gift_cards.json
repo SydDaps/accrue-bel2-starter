@@ -1,0 +1,27 @@
+[
+  {
+    "name": "Apple Gift Card",
+    "price": 10000,
+    "slug": "apple-gift-card"
+  },
+  {
+    "name": "Google Gift Card",
+    "price": 10000,
+    "slug": "google-gift-card"
+  },
+  {
+    "name": "Amazon Gift Card",
+    "price": 10000,
+    "slug": "amazon-gift-card"
+  },
+  {
+    "name": "Target Gift Card",
+    "price": 10000,
+    "slug": "target-gift-card"
+  },
+  {
+    "name": "Walmart Gift Card",
+    "price": 10000,
+    "slug": "walmart-gift-card"
+  }
+]
