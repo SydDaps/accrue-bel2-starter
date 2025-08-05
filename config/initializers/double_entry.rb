@@ -2,6 +2,12 @@ require 'double_entry'
 require 'money'
 
 DoubleEntry.configure do |config|
+  Money.locale_backend = :currency
+  Money.rounding_mode = BigDecimal::ROUND_HALF_UP
+
+  Dollar = Money::Currency.find('USD')
+  config.default_currency = Dollar
+
   # Use json(b) column in double_entry_lines table to store metadata instead of separate metadata table
   config.json_metadata = true
 
