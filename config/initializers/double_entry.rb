@@ -1,4 +1,5 @@
 require 'double_entry'
+require 'money'
 
 DoubleEntry.configure do |config|
   # Use json(b) column in double_entry_lines table to store metadata instead of separate metadata table
