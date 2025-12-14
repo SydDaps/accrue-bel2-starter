@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_08_05_154034) do
+ActiveRecord::Schema[7.2].define(version: 2025_12_13_225235) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -53,6 +53,27 @@ ActiveRecord::Schema[7.2].define(version: 2025_08_05_154034) do
     t.index ["scope", "account", "id"], name: "lines_scope_account_id_idx"
   end
 
+  create_table "gift_card_orders", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "gift_card_id", null: false
+    t.string "status", default: "pending", null: false
+    t.integer "fee", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["gift_card_id"], name: "index_gift_card_orders_on_gift_card_id"
+    t.index ["status"], name: "index_gift_card_orders_on_status"
+    t.index ["user_id"], name: "index_gift_card_orders_on_user_id"
+  end
+
+  create_table "gift_cards", force: :cascade do |t|
+    t.string "slug"
+    t.string "name"
+    t.integer "price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["slug"], name: "index_gift_cards_on_slug", unique: true
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "username", null: false
     t.string "password_digest"
@@ -60,4 +81,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_08_05_154034) do
     t.datetime "updated_at", null: false
     t.index ["username"], name: "index_users_on_username", unique: true
   end
+
+  add_foreign_key "gift_card_orders", "gift_cards"
+  add_foreign_key "gift_card_orders", "users"
 end
