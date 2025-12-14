@@ -5,9 +5,11 @@ ruby '3.3.1'
 
 gem 'rails', '~> 7.2.1'
 gem 'pg'
-gem 'puma', '~> 4.1'
+gem 'puma', '~> 6.0'
 gem 'bcrypt', '~> 3.1.7'
 gem 'bootsnap', '>= 1.4.2', require: false
+gem 'dotenv-rails'
+gem 'jwt'
 
 # GraphQL
 gem 'graphql'
@@ -24,6 +26,7 @@ group :development, :test do
   gem 'factory_bot_rails'
   gem 'faker'
   gem 'shoulda-matchers', '~> 6.0'
+  gem 'database_cleaner-active_record'
 end
 
 group :development do

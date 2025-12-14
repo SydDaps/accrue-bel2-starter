@@ -83,8 +83,16 @@ GEM
     concurrent-ruby (1.3.5)
     connection_pool (2.5.3)
     crass (1.0.6)
+    database_cleaner-active_record (2.2.2)
+      activerecord (>= 5.a)
+      database_cleaner-core (~> 2.0)
+    database_cleaner-core (2.0.1)
     date (3.4.1)
     diff-lcs (1.6.2)
+    dotenv (3.2.0)
+    dotenv-rails (3.2.0)
+      dotenv (= 3.2.0)
+      railties (>= 6.1)
     double_entry (2.0.1)
       activerecord (>= 6.1.0)
       activesupport (>= 6.1.0)
@@ -127,6 +135,8 @@ GEM
       pp (>= 0.6.0)
       rdoc (>= 4.0.0)
       reline (>= 0.4.2)
+    jwt (3.1.2)
+      base64
     listen (3.9.0)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
@@ -154,7 +164,7 @@ GEM
       timeout
     net-smtp (0.5.1)
       net-protocol
-    nio4r (2.7.4)
+    nio4r (2.7.5)
     nokogiri (1.18.9-aarch64-linux-gnu)
       racc (~> 1.4)
     nokogiri (1.18.9-aarch64-linux-musl)
@@ -185,16 +195,16 @@ GEM
     psych (5.2.6)
       date
       stringio
-    puma (4.3.12)
+    puma (6.6.1)
       nio4r (~> 2.0)
     racc (1.8.1)
-    rack (3.1.16)
+    rack (3.1.19)
     rack-session (2.1.1)
       base64 (>= 0.1.0)
       rack (>= 3.0.0)
     rack-test (2.2.0)
       rack (>= 1.3)
-    rackup (2.2.1)
+    rackup (2.3.1)
       rack (>= 3)
     rails (7.2.2.1)
       actioncable (= 7.2.2.1)
@@ -281,14 +291,17 @@ DEPENDENCIES
   bcrypt (~> 3.1.7)
   bootsnap (>= 1.4.2)
   byebug
+  database_cleaner-active_record
+  dotenv-rails
   double_entry
   factory_bot_rails
   faker
   graphql
   interactor-rails
+  jwt
   listen (~> 3.2)
   pg
-  puma (~> 4.1)
+  puma (~> 6.0)
   rails (~> 7.2.1)
   rspec-rails
   shoulda-matchers (~> 6.0)
