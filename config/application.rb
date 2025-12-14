@@ -33,6 +33,11 @@ module AccrueBel2Starter
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.0
 
+    # Load utils before initializers
+    config.before_initialize do
+      Dir[Rails.root.join('app', 'utils', '*.rb')].each { |f| require f }
+    end
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
@@ -42,5 +47,8 @@ module AccrueBel2Starter
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
+
+    # Autoload lib directory
+    config.eager_load_paths << Rails.root.join('lib')
   end
 end
