@@ -18,6 +18,8 @@ module Mutations
         {errors: [{ type: ErrorTypes::NOT_FOUND, message: "#{e.model} not found" }]}
       rescue Errors::Unauthorized => e
         {errors: [{ type: ErrorTypes::UNAUTHORIZED, message: e.message }]}
+      rescue Interactor::Failure => e
+        {errors: [{ type: e.context.error[:type], message: e.context.error[:message] }]}
       rescue GraphQL::ExecutionError => e
         {errors: [{ type: e.extensions[:type] || ErrorTypes::EXECUTION_ERROR, message: e.message }]}
       rescue => e

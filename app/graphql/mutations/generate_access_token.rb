@@ -9,30 +9,12 @@ module Mutations
     field :user, Types::UserType, null: true
 
     def execute(username:, password:)
-      @username = username
-      @password = password
-
-      authenticate_user
-      generate_token
+      result = Accrue::Users::GenerateToken.call!(username: username, password: password)
 
       {
-        access_token: @token,
-        user: @user
+        access_token: result.token,
+        user: result.user
       }
-    end
-
-    private
-
-    def authenticate_user
-      @user = User.find_by(username: @username)
-
-      unless @user&.authenticate(@password)
-        raise Errors::Unauthorized, 'Invalid username or password'
-      end
-    end
-
-    def generate_token
-      @token = TokenEncoder.encode({ user_id: @user.id })
     end
   end
 end
