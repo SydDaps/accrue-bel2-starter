@@ -41,9 +41,9 @@ module Accrue
       end
 
       def check_sufficient_funds
-        balance = user_primary_account.balance.cents
+        balance = user_primary_account.balance
 
-        if balance < total_amount
+        if balance.cents < total_amount
           fail!(ErrorTypes::INSUFFICIENT_FUNDS, "User has insufficient funds to complete the gift card purchase.")
         end
       end

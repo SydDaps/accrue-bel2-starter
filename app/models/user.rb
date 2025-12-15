@@ -8,6 +8,6 @@ class User < ApplicationRecord
   validates :username, presence: true, uniqueness: true
 
   def balance(currency = Dollar, account_type = AccountType::User::PRIMARY)
-    account(account_type, currency).balance.cents
+    account(account_type, currency).balance
   end
 end

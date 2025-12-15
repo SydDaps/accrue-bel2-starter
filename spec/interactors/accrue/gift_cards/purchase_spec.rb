@@ -30,14 +30,14 @@ RSpec.describe Accrue::GiftCards::Purchase, type: :interactor do
       end
 
       it 'transfers total amount from primary to outgoing account' do
-        initial_primary_balance = user.balance
+        initial_primary_balance = user.balance.cents
 
         result = described_class.call(user_id: user.id, gift_card_id: gift_card.id)
 
         expect(result).to be_success
 
         user.reload
-        final_primary_balance = user.balance
+        final_primary_balance = user.balance.cents
 
         expect(final_primary_balance).to eq(initial_primary_balance - 10100)
 
@@ -46,7 +46,7 @@ RSpec.describe Accrue::GiftCards::Purchase, type: :interactor do
       end
 
       it 'transfers fee from outgoing to revenue account' do
-        initial_outgoing_balance = user.balance(Dollar, AccountType::User::OUTGOING)
+        initial_outgoing_balance = user.balance(Dollar, AccountType::User::OUTGOING).cents
         revenue_account = DoubleEntry::Account.account(AccountType::Internal::GIFT_CARD_REVENUE)
         initial_revenue_balance = revenue_account.balance.cents
 
@@ -55,7 +55,7 @@ RSpec.describe Accrue::GiftCards::Purchase, type: :interactor do
         expect(result).to be_success
 
         user.reload
-        final_outgoing_balance = user.balance(Dollar, AccountType::User::OUTGOING)
+        final_outgoing_balance = user.balance(Dollar, AccountType::User::OUTGOING).cents
         revenue_account = DoubleEntry::Account.account(AccountType::Internal::GIFT_CARD_REVENUE)
         final_revenue_balance = revenue_account.balance.cents
 
