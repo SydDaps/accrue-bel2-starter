@@ -23,11 +23,11 @@ DoubleEntry.configure do |config|
     accounts.define(identifier: AccountType::User::OUTGOING, scope_identifier: user_scope, positive_only: false)
 
     accounts.define(identifier: AccountType::Internal::GIFT_CARD_REVENUE, positive_only: true)
-    accounts.define(identifier: AccountType::Internal::EXTERNAL_FUNDING, positive_only: false)
+    accounts.define(identifier: AccountType::Internal::PRIMARY_FUNDING, positive_only: false)
   end
 
   config.define_transfers do |transfers|
-    transfers.define(from: AccountType::Internal::EXTERNAL_FUNDING, to: AccountType::User::PRIMARY,  code: TransactionCode::DEPOSIT)
+    transfers.define(from: AccountType::Internal::PRIMARY_FUNDING, to: AccountType::User::PRIMARY,  code: TransactionCode::DEPOSIT)
     transfers.define(from: AccountType::User::PRIMARY,  to: AccountType::User::OUTGOING, code: TransactionCode::GIFT_CARD_PURCHASE)
     transfers.define(from: AccountType::User::OUTGOING  ,  to: AccountType::Internal::GIFT_CARD_REVENUE, code: TransactionCode::GIFT_CARD_FEE)
   end

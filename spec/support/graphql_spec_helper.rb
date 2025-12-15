@@ -16,7 +16,7 @@ module GraphQLSpecHelper
   end
 
   def fund_user_account(user, amount)
-    external_funding = DoubleEntry::Account.account(AccountType::Internal::EXTERNAL_FUNDING)
+    external_funding = DoubleEntry::Account.account(AccountType::Internal::PRIMARY_FUNDING)
     DoubleEntry.transfer(
       Money.new(amount, 'USD'),
       from: external_funding,
