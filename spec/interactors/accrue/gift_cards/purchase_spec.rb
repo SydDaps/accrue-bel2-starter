@@ -13,7 +13,7 @@ RSpec.describe Accrue::GiftCards::Purchase, type: :interactor do
 
     context 'successful purchase of a gift card' do
       it 'successfully purchases a gift card' do
-        result = described_class.call(user: user, gift_card: gift_card)
+        result = described_class.call(user_id: user.id, gift_card_id: gift_card.id)
 
         expect(result).to be_success
         expect(result.gift_card_order).to be_present
@@ -25,14 +25,14 @@ RSpec.describe Accrue::GiftCards::Purchase, type: :interactor do
 
       it 'creates a gift card order record' do
         expect {
-          described_class.call(user: user, gift_card: gift_card)
+          described_class.call(user_id: user.id, gift_card_id: gift_card.id)
         }.to change(GiftCardOrder, :count).by(1)
       end
 
       it 'transfers total amount from primary to outgoing account' do
         initial_primary_balance = user.balance
 
-        result = described_class.call(user: user, gift_card: gift_card)
+        result = described_class.call(user_id: user.id, gift_card_id: gift_card.id)
 
         expect(result).to be_success
 
@@ -50,7 +50,7 @@ RSpec.describe Accrue::GiftCards::Purchase, type: :interactor do
         revenue_account = DoubleEntry::Account.account(AccountType::Internal::GIFT_CARD_REVENUE)
         initial_revenue_balance = revenue_account.balance.cents
 
-        result = described_class.call(user: user, gift_card: gift_card)
+        result = described_class.call(user_id: user.id, gift_card_id: gift_card.id)
 
         expect(result).to be_success
 
@@ -68,7 +68,7 @@ RSpec.describe Accrue::GiftCards::Purchase, type: :interactor do
       let(:expensive_gift_card) { create(:gift_card, price: 30000) }
 
       it 'fails with insufficient funds error' do
-        result = described_class.call(user: user, gift_card: expensive_gift_card)
+        result = described_class.call(user_id: user.id, gift_card_id: expensive_gift_card.id)
 
         expect(result).to be_failure
         expect(result.error[:type]).to eq(:insufficient_funds)

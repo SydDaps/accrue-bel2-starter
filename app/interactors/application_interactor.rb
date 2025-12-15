@@ -21,4 +21,12 @@ class ApplicationInteractor
   def fail!(error_type, message)
     context.fail!(error: { type: error_type, message: message })
   end
+
+  def find_user(user_id)
+    User.find(user_id)
+  end
+
+  def find_gift_card(gift_card_id)
+    GiftCard.find(gift_card_id)
+  end
 end

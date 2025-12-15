@@ -3,9 +3,12 @@
 module Accrue
   module GiftCards
     class Purchase < ApplicationInteractor
-      delegate :user, :gift_card, :gift_card_order, :user_primary_account, :user_outgoing_account, :gift_card_revenue_account, :fee, :total_amount, to: :context
+      delegate :user_id, :gift_card_id, :user, :gift_card, :gift_card_order, :user_primary_account, :user_outgoing_account, :gift_card_revenue_account, :fee, :total_amount, to: :context
 
       def call
+        context.user = find_user(user_id)
+        context.gift_card = find_gift_card(gift_card_id)
+
         validate_amount
         calculate_total_amount
         fetch_accounts
