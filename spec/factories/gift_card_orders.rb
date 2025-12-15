@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :gift_card_order do
-    user { nil }
-    gift_card { nil }
-    status { "MyString" }
-    fee { 1 }
+    user
+    gift_card { GiftCard.first }
+    status { :completed }
+    fee { 100 }
   end
 end
